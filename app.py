@@ -23,23 +23,22 @@ db = SQL("sqlite:///users.db")
 # Index.html homepage
 @app.route("/")
 def index():
-
     logged_in = "user_id" in session
     user_id = session.get("user_id")
 
     # Get all posts from the database
-    posts = db.execute("SELECT * FROM posts ORDER BY id DESC")
+    # posts = db.execute("SELECT * FROM posts ORDER BY id DESC")
+    posts = db.execute("SELECT posts.*, users.username FROM posts JOIN users ON posts.user_id = users.id ORDER BY posts.id DESC")
     usr = session.get("user_id")    
 
-    if logged_in:
-        
+    if logged_in:        
         # Check if user is admin
         is_user_admin = is_admin(session.get("user_id"))
 
         # Get username of logged user
         result = db.execute("SELECT username FROM users WHERE id = ?", session["user_id"])
         username = result[0]['username']
-        return render_template("index.html", message="", logged_in=logged_in, posts=posts, usr=usr, username=username, is_user_admin=is_user_admin, current_user=current_user)
+        return render_template("index.html", message="", logged_in=logged_in, user_id=user_id, posts=posts, username=username, usr=usr, is_user_admin=is_user_admin, current_user=current_user)
     else:
         is_user_admin = False        
         raw_username = db.execute("SELECT username FROM users JOIN posts ON users.id = posts.user_id WHERE posts.user_id = users.id")
@@ -47,7 +46,7 @@ def index():
             username = raw_username[0]['username']
 
     # If index.html request is GET
-    return render_template("index.html", message="", logged_in=logged_in, username=username, usr=usr, posts=posts, is_user_admin=is_user_admin, current_user=current_user)
+    return render_template("index.html", message="", logged_in=logged_in, usr=usr, posts=posts, username=username, is_user_admin=is_user_admin, current_user=current_user)
 
 # Register.html
 @app.route("/register", methods=["GET", "POST"])
@@ -154,7 +153,6 @@ def post():
 def delete(post_id):
 
     if request.method == "POST":
-        # Delete the post with the given post_id from the database
         db.execute("DELETE FROM posts WHERE id = ?", post_id)
         return redirect(url_for("index"))
 
