@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block title %}
+    Register
+{% endblock %}
+
+<!-- Content here -->
+{% block main %}
+<div class="container text-center">   
+    <h2>Register</h2>
+    <form method="POST" action="/register">    
+        <div class="mb-3">
+            <input type="text" placeholder="username" autocomplete="on" name="username">
+        </div>
+        <div class="mb-3">
+            <input type="password" placeholder="password" autocomplete="on" name="password">
+        </div>
+        <div class="mb-3">
+            <input type="password" placeholder="confirm password" autocomplete="on" name="confirmation">
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>   
+<h6>{{ message }}</h6>
+</div> 
+{% endblock %}

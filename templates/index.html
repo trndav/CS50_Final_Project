@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+<!-- Content here -->
+{% block main %}
+{{ message }}
+{% for post in posts %}
+    <div class="row justify-content-center mt-3">
+        <div class="card" style="width: 50rem;">
+            <div class="card-body border border-dark rounded">
+            <h5 class="card-title">{{ post.title }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Posted by: {{ username }} at {{ post.time }}</h6>
+            <p class="card-text">{{ post.post }}</p>
+
+            <!-- Edit & Delete post button -->
+            {% if is_user_admin or post.user_id == usr %}  
+            <div class="d-flex">
+                    <a class="btn btn-secondary btn-sm me-2" href="/edit/{{ post.id }}">Edit</a>            
+                <span>&nbsp;</span>              
+                <form action="/delete/{{ post.id }}" method="POST">
+                    <button type="submit" class="btn btn-dark btn-sm">Delete</button>
+                </form>
+            </div>   
+            {% endif %}         
+        </div>
+    </div>
+{% endfor %}
+{% endblock %}

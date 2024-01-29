@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block title %}
+    Readme
+{% endblock %}
+
+<!-- Content here -->
+{% block main %}
+    {{ message }}
+
+    <div class="row justify-content-center mt-3">
+        <div class="card" style="width: 50rem;">
+            <div class="card-body border border-dark rounded">
+                <h3>Webpage functionality</h3>
+                <p>Git repo: https://github.com/trndav/cs50/tree/main/final_project</p>
+                <p>Register account</p>
+                <p>Hashed passwords</p>
+                <p>Login/logout</p>
+                <p>Sessions</p>
+                <p>Admin user</p>
+                <p>Create posts</p>
+                <p>Delete posts</p>
+                <p>Edit posts</p>
+                <p>Bootstrap menu and footer</p>
+                <p>Javascript for menu link to change color of background</p>
+
+                <p>CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
+                    username TEXT NOT NULL, hash TEXT NOT NULL);</p>
+
+                <p>CREATE TABLE posts(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                user_id INTEGER NOT NULL, title TEXT NOT NULL, post TEXT NOT NULL,
+                time DATE, admin INTEGER DEFAULT 0, FOREIGN KEY (user_id) REFERENCES users (id));</p>
+                
+                <p>
+                from flask import Flask, render_template, session, request, redirect, url_for
+                from flask_session import Session
+                from cs50 import SQL
+                from werkzeug.security import check_password_hash, generate_password_hash
+                from helpers import login_required
+                from datetime import datetime
+                from flask_login import current_user</p>  
+            </div>
+        </div>
+    </div>
+{% endblock %}

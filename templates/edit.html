@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block title %}
+    Edit post
+{% endblock %}
+
+<!-- Content here -->
+{% block main %}
+<div class="row justify-content-center mt-3">
+    <div class="card" style="width: 50rem;">
+        <div class="card-body border border-dark rounded">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <h2>Edit Post</h2>          
+            <form method="POST" action="/edit/{{ post.id }}">
+                <div class="form-group">        
+                    <label for="exampleFormControlInput1">Post title</label>
+                    <input type="text" name="title" class="form-control" id="exampleFormControlInput1" value="{{ post.title }}">
+                </div>
+                <div class="form-group" class="col-sm-8">
+                    <label for="exampleFormControlTextarea1">Post content</label>
+                    <textarea class="form-control" name="post" id="exampleFormControlTextarea1" rows="3">{{ post.post }}</textarea> 
+                </div>
+                <button type="submit" class="btn btn-primary">Save edited post</button>
+            </form>         
+            <h6>{{ message }}</h6>
+        </div>        
+    </div>    
+</div>
+</div>
+</div>
+</div>
+{% endblock %}
